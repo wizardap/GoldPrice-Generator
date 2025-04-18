@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  pnj-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pnj-generator
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://host.docker.internal:8080/add
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - pnj-network
+
+networks:
+  pnj-network:
+    driver: bridge
