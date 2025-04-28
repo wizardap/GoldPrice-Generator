@@ -4,12 +4,12 @@ import { GoldPrice } from './models/goldPrice';
 // Use host.docker.internal instead of localhost to reference the host machine
 const API_URL = process.env.API_URL || 'http://host.docker.internal:8080/add';
 
-export async function sendGoldPrices(vendorKey: string, goldPrices: GoldPrice[]): Promise<void> {
+export async function sendGoldPrices(vendorKey: string, goldPrice: GoldPrice): Promise<void> {
     try {
         // Format the data according to the required structure
         const formattedData = {
             key: vendorKey,
-            value: goldPrices
+            value: goldPrice
         };
 
         await axios.post(API_URL, formattedData);

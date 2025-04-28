@@ -1,6 +1,5 @@
 export interface GoldPrice {
-    type: string;
-    sellPrice: number;
-    buyPrice: number;
-    updatedAt: Date;
+    buy: number;
+    sell: number;
+    unit: string;
 }

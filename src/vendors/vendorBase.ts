@@ -11,12 +11,12 @@ export abstract class VendorBase {
     this.config = config;
   }
 
-  abstract fetchPrices(): Promise<GoldPrice[]>;
+  abstract fetchPrices(): Promise<GoldPrice>;
 
   async processAndSend(): Promise<void> {
     try {
-      const prices = await this.fetchPrices();
-      await sendGoldPrices(this.config.key, prices);
+      const price = await this.fetchPrices();
+      await sendGoldPrices(this.config.key, price);
       logInfo(`${this.config.name} gold prices sent successfully.`);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
@@ -28,16 +28,16 @@ export abstract class VendorBase {
     if (this.intervalId) {
       this.stop();
     }
-    
+
     // Run immediately once
     this.processAndSend();
-    
+
     // Then set up interval
     this.intervalId = setInterval(
-      () => this.processAndSend(), 
+      () => this.processAndSend(),
       this.config.updateIntervalMs
     );
-    
+
     logInfo(`${this.config.name} vendor started with update interval: ${this.config.updateIntervalMs}ms`);
   }
 

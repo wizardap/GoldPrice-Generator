@@ -26,10 +26,9 @@ export async function fetchGoldPrices(): Promise<GoldPrice[]> {
             const buyFluctuation = getRandomFluctuation(prices.buy);
 
             return {
-                type,
-                sellPrice: prices.sell + sellFluctuation,
-                buyPrice: prices.buy + buyFluctuation,
-                updatedAt: currentDate
+                buy: prices.buy + buyFluctuation,
+                sell: prices.sell + sellFluctuation,
+                unit: "VND per tael"
             };
         });
 
